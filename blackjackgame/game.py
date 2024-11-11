@@ -1,12 +1,4 @@
 #!/usr/bin/env python3
-# Anthony Seng
-# CPSC 386-02
-# 2023-02-16
-# aseng6825@csu.fullerton.edu
-# @aseng2
-#
-# Lab 02-00
-#
 # game.py
 #
 
@@ -14,9 +6,6 @@
 from blackjackgame.cards import *
 from blackjackgame.player import *
 from random import randint
-import os
-import os.path
-import pickle
 import locale
 
 
@@ -29,36 +18,18 @@ class blackjack:
         print("Welcome to BlackJack")
 
     def run(self):
-        from time import sleep
-
+        print("Hello")
         # playing = True
         # while playing:
-        # num_players = int(input("How many players?\n"))
-        # player_list = []
-        num_players = 0
-        player_list = []
-        main_dir = os.path.dirname(os.path.abspath(__file__))
-        data_dir = os.path.join(main_dir, "data")
-        pickle_file = os.path.join(data_dir, "players.pk1")
+        # num_players = 2
+        # player_list = [AIPlayer1("Jack Black"), AIPlayer2("")]
+        num_players = 1 #Testing
+        player_list = [Player("Anthony")] #Testing
+        #main_dir = os.path.dirname(os.path.abspath(__file__))
+        #data_dir = os.path.join(main_dir, "data")
+        #pickle_file = os.path.join(data_dir, "players.pk1")
         # locale.setlocale(locale.LC_ALL, "en_US") # Are you a new player?
-        new_players = input("Are you a new player?\n")
-        if new_players.lower() == "n":
-            if os.path.exists(pickle_file):
-                with open(pickle_file, "rb") as fh:
-                    player_list = pickle.load(fh)
-                num_players = len(player_list)
-        if new_players.lower() == "y":
-            num_players = int(input("How many players? "))
-            for _ in range(num_players):
-                x = input("What is your name?\n")
-                player_list.append(Player(x))
-        print("We made the following players: ")
-        for player in player_list:
-            print(f"{player} has {player._bankroll}")
-
-        # for _ in range(num_players):
-        # x = input("What is your name?\n")
-        # player_list.append(Player(x))
+        #new_players = input("Are you a new player?\n")
 
         dealer = Dealer("dealer")
         while True:
@@ -129,7 +100,7 @@ class blackjack:
 
             new_game = input(
                 "Would you like to play another game? Enter y or n \n"
-            )
+                )
 
             if new_game.lower() == "y":
                 for player in player_list:
@@ -144,8 +115,4 @@ class blackjack:
                 for player in player_list:
                     player._play = True
                 print("Thanks for playing")
-                if not os.path.exists(data_dir):
-                    os.mkdir(data_dir)
-                with open(pickle_file, "wb") as fh:
-                    pickle.dump(player_list, fh, pickle.HIGHEST_PROTOCOL)
                 break
